@@ -2,10 +2,15 @@
 #include <stdio.h>
 int findvafact();
 int main() {
-    int number = 0;
+    int number = 0,n;
+    scanf("%d",&n);
     while (1) {
-        if (findvafact(++number) == 4) {
-            if (findvafact(number + 1) == 4 && findvafact(number + 2) == 4 && findvafact(number + 3) == 4) break;
+        if (findvafact(++number) == n) {
+            int dist = 0;
+            for (int i = 1; i < n; i++) {
+                if (findvafact(number + i) == n) dist++;
+            }
+            if (dist == n-1) break;
         }
     }
     printf("%d", number);
@@ -14,12 +19,11 @@ int findvafact(int x) {
     int checkpoint = 0;
     int div = 2;
     int repeat = 0;
-    while (1) {
+    while (x!=1) {
         if (x % div == 0) {
             x /= div;
             repeat++;
             if (repeat == 1) checkpoint++;
-            if (x == 1) break;
         }
         else { div++; repeat = 0; }
     }
